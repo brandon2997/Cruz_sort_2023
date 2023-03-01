@@ -10,12 +10,17 @@
         <div id = "container">
 
             <h1>Game List</h1>
-            <nav>]
+          
+            <nav>
                 <a href="index.html">Enter Games Here</a>
+                
             </nav>
             <p>List of Game Here</p>
-            
+            <form action="/sortGame"method="get">
+                <button type="submit">Sort</button>
+            </form>
             <script>
+                
                 fetch("/getGames").then(function(games){
                     games.json().then(function(theGames){
                         console.log(theGames)
@@ -73,24 +78,6 @@
                                 gameElement.appendChild(updateButton)
                                 
 
-                                var SortButton = document.createElement("button")
-                                SortButton.innerText = "Sort Game"
-                                SortButton.addEventListener("click",function(){
-                                    fetch("/sortGame", {
-                                       method:"POST",
-                                       headers:{
-                                           "Content-Type":"application/json"
-                                           
-                                        },
-                                        body:JSON.stringify({
-                                            game:game
-                                        })
-                                    })
-                                })
-                                
-                                
-                                
-                                gameElement.appendChild(SortButton)
 
                             }
                     })

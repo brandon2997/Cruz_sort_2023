@@ -49,10 +49,11 @@ app.post("/saveGame", function(req,res){
 })
 
 app.post("/findGame", function(req,res){
-    //console.log(req.body)
-    console.log(Game.findById(req.body.game))
-    
-    //res.redirect("gamelist.html")
+    Game.find({"game":req.body.game}).then(function(game){
+        res.redirect("result.html?id=" + game[0]._id + "&game=" + game[0].game);
+    }).catch(function(){
+        res.redirect("result.html?game=");
+    })
     
 
 })
@@ -87,8 +88,10 @@ app.post("/deleteGame",function(req,res){
         res.redirect('gamelist.html')
 })
 
-app.post("/sortGame",function(req,res){
-   Game.find({}).sort({game : 1});
+app.get("/sortGame",function(req,res){
+   Game.find({}).sort({game : 1}).then(function(list){
+    res.json({list});
+   });
 
 })
 

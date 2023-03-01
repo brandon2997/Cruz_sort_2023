@@ -32,11 +32,10 @@
                         <button type="submit">Save Game</button>
                         
                     </form>
-                    <form action="/findGame" method="post" onsubmit="return checkForm()">
-                        <span id="err" style="color: red"></span>
-                        <br>
-                        <input type="text" name="game" id = "GameTitle" placeholder="Enter Game Here">
-                        <button type="submit">Search Game</button>
+                    <form action="/findGame" method="post">
+                        <input type="text" name="game" id="game" placeholder="Search">
+                        <input type="submit">
+                    
                     </form>
 
 
