@@ -1,5 +1,6 @@
 var mongoose = require("mongoose")
 var Schema = mongoose.Schema
+var playSchema = mongoose.Schema
 var Schema = new Schema({
     game:{
         type:String,
@@ -9,5 +10,16 @@ var Schema = new Schema({
 
     }
 })
+var playSchema = new Schema({
+    player:{
+        userName:String,
+        firstName:String,
+        lastName:String,
+        date:String,
+        score:String
+    }
+})
 
-mongoose.model("game", Schema)
+
+//mongoose.model("game", Schema)
+mongoose.model("player",playSchema)

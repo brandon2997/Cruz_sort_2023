@@ -25,6 +25,7 @@ mongoose.connect(db.mongoURI,{
 
 require("./models/Game")
 var Game = mongoose.model("game")
+var Player = mongoose.model("player")
 
 //example routes
 app.get("/",  function(req,res){
@@ -94,6 +95,54 @@ app.get("/sortGame",function(req,res){
    });
 
 })
+
+//unity
+app.post("/unity", function(req,res){
+    console.log("Hello from Unity");
+    var newData = {
+        "User": req.body.user,
+        "FirstName": req.body.firstName,
+        "Lastname": req.body.lastName,
+        "Date" : req.body.date,
+        "Score" : req.body.score
+    }
+    console.log(newData);
+    
+
+
+});
+
+app.post("/unitySave", function(req,res){
+    console.log("Hello from Unity");
+    var newData = {
+        "User": req.body.user,
+        "FirstName": req.body.firstName,
+        "Lastname": req.body.lastName,
+        "Date" : req.body.date,
+        "Score" : req.body.score
+    }
+    console.log(newData);
+    new Player(req.body).save().then(function(){
+            console.log(req.body)
+    })
+    
+
+
+});
+
+
+app.get("/SendUnityData", function(req,res){
+    console.log("request made");
+    var dataToSend = {
+        "User": "test",
+        "First Name": "vacant",
+        "Last name": "best champ",
+        "Date" : "8/15/00",
+        "Score" : "66608"
+    }
+    res.send(dataToSend);
+})
+
 
 app.listen(port, function(){
         console.log(`Running on port ${port}`)
