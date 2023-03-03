@@ -24,7 +24,7 @@ mongoose.connect(db.mongoURI,{
 })
 
 require("./models/Game")
-var Game = mongoose.model("game")
+//var Game = mongoose.model("game")
 var Player = mongoose.model("player")
 
 //example routes
@@ -99,7 +99,7 @@ app.get("/sortGame",function(req,res){
 //unity
 app.post("/unity", function(req,res){
     console.log("Hello from Unity");
-    var newData = {
+    let newData = {
         "User": req.body.user,
         "FirstName": req.body.firstName,
         "Lastname": req.body.lastName,
@@ -114,16 +114,11 @@ app.post("/unity", function(req,res){
 
 app.post("/unitySave", function(req,res){
     console.log("Hello from Unity");
-    var newData = {
-        "User": req.body.user,
-        "FirstName": req.body.firstName,
-        "Lastname": req.body.lastName,
-        "Date" : req.body.date,
-        "Score" : req.body.score
-    }
-    console.log(newData);
+   
+    //console.log(newData);
     new Player(req.body).save().then(function(){
             console.log(req.body)
+            //res.send(req.body)
     })
     
 
@@ -131,16 +126,32 @@ app.post("/unitySave", function(req,res){
 });
 
 
+app.post("/getUnitySearch", function(req,res){
+    console.log("request made");
+    console.log()
+    Player.find({"user": req.body.user}).then(function(player){
+        console.log({player})
+        
+        res.send({player})    
+        
+})
+})
 app.get("/SendUnityData", function(req,res){
     console.log("request made");
-    var dataToSend = {
-        "User": "test",
-        "First Name": "vacant",
-        "Last name": "best champ",
-        "Date" : "8/15/00",
-        "Score" : "66608"
+    Player.find({"user": req.body.user}).then(function(player){
+        console.log(player)
+        //res.send({player})    
+    })
+
+/* var dataToSend = {
+        "user": "test",
+        "firstName": "vacant",
+        "lastName": "best champ",
+        "date" : "8/15/00",
+        "score" : "66608"
     }
     res.send(dataToSend);
+    */
 })
 
 

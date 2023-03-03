@@ -1,7 +1,7 @@
 var mongoose = require("mongoose")
 var Schema = mongoose.Schema
 var playSchema = mongoose.Schema
-var Schema = new Schema({
+/*var Schema = new Schema({
     game:{
         type:String,
         required:true
@@ -9,15 +9,15 @@ var Schema = new Schema({
 
 
     }
-})
+})*/
 var playSchema = new Schema({
-    player:{
-        userName:String,
+    
+        user:String,
         firstName:String,
         lastName:String,
         date:String,
         score:String
-    }
+    
 })
 
 
