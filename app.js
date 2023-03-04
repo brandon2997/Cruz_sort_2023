@@ -6,6 +6,7 @@ var mongoose =  require("mongoose")
 const { response } = require("express")
 var port = process.env.port||3000
 var db = require("./config/database")
+const { runInNewContext } = require("vm")
 var sort = { game : 1}
 
 
@@ -125,10 +126,23 @@ app.post("/unitySave", function(req,res){
 
 });
 
-
+app.post("/postUnityDelete",function(req,res){
+    console.log("request made")  
+      Player.find({"user": req.body.user}).then(function(player){
+        console.log(player)
+        Player.findByIdAndDelete(player).exec() 
+      }) 
+})
+app.post("/postUnityEdit",function(req,res){
+    console.log("request made")  
+      Player.find({"user": req.body.user}).then(function(player){
+        console.log(player)
+        Player.findByIdAndUpdate(player,req.body).exec() 
+      }) 
+})
 app.post("/getUnitySearch", function(req,res){
     console.log("request made");
-    console.log()
+   
     Player.find({"user": req.body.user}).then(function(player){
         console.log({player})
         
@@ -136,7 +150,7 @@ app.post("/getUnitySearch", function(req,res){
         
 })
 })
-app.get("/SendUnityData", function(req,res){
+app.post("/SendUnityData", function(req,res){
     console.log("request made");
     Player.find({"user": req.body.user}).then(function(player){
         console.log(player)
