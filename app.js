@@ -140,13 +140,31 @@ app.post("/postUnityEdit",function(req,res){
         Player.findByIdAndUpdate(player,req.body).exec() 
       }) 
 })
+app.get("/sortUnityList",function(req,res){
+    console.log("request made")
+    Player.find().sort({user : 1}).then(function(player)
+    {
+        console.log({player})
+        res.send({player})
+    })
+})
 app.post("/getUnitySearch", function(req,res){
     console.log("request made");
    
     Player.find({"user": req.body.user}).then(function(player){
-        console.log({player})
+        var playerData = player;
+        console.log(playerData[0].user)
+         var dataToSend = {
+            "user" : playerData[0].user,
+             "firstName":playerData[0].firstName,
+             "lastName":playerData[0].lastName,
+             "data":playerData[0].date,
+             "score":playerData[0].score,
+
+
+        }
         
-        res.send({player})    
+        res.send(dataToSend)    
         
 })
 })
